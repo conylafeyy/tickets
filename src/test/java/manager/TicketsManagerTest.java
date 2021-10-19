@@ -9,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TicketsManagerTest {
     private TicketsManager manager = new TicketsManager();
-    private InformationAboutFlights firstTicket = new InformationAboutFlights(1, 1299, "SVO", "KZN", 95);
+    private InformationAboutFlights zeroTicket = new InformationAboutFlights(0, 4545, "DME", "KZN", 90);
+    private InformationAboutFlights firstTicket = new InformationAboutFlights(1, 1299, "DME", "KZN", 95);
     private InformationAboutFlights secondTicket = new InformationAboutFlights(2, 2199, "VKO", "KZN", 95);
     private InformationAboutFlights thirdTicket = new InformationAboutFlights(3, 2385, "DME", "KZN", 90);
-    private InformationAboutFlights fourthTicket = new InformationAboutFlights(4, 3100, "DME", "KZN", 90);
+    private InformationAboutFlights fourthTicket = new InformationAboutFlights(4, 4114, "DME", "KZN", 95);
+    private InformationAboutFlights fifthTicket = new InformationAboutFlights(5, 3100, "DME", "KZN", 90);
 
 
     @BeforeEach
@@ -21,27 +23,13 @@ class TicketsManagerTest {
         manager.save(secondTicket);
         manager.save(thirdTicket);
         manager.save(fourthTicket);
-    }
-
-    @Test
-    void findFrom() {
-        InformationAboutFlights[] expected = new InformationAboutFlights[]{firstTicket};
-        InformationAboutFlights[] actual = manager.find("SVO", "");
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    void findTo() {
-        InformationAboutFlights[] expected = new InformationAboutFlights[]{firstTicket, secondTicket, thirdTicket, fourthTicket};
-        InformationAboutFlights[] actual = manager.find("", "KZN");
-
-        assertArrayEquals(expected, actual);
+        manager.save(zeroTicket);
+        manager.save(fifthTicket);
     }
 
     @Test
     void findFromTo() {
-        InformationAboutFlights[] expected = new InformationAboutFlights[]{firstTicket, secondTicket, thirdTicket, fourthTicket};
+        InformationAboutFlights[] expected = new InformationAboutFlights[]{firstTicket, thirdTicket, fifthTicket, fourthTicket, zeroTicket};
         InformationAboutFlights[] actual = manager.find("DME", "KZN");
 
         assertArrayEquals(expected, actual);
